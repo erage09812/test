@@ -1,7 +1,7 @@
 # Build stage
 FROM golang:1.22-alpine AS builder
 
-WORKDIR /app
+WORKDIR /ls
 
 COPY go.mod go.sum ./
 RUN go mod download
@@ -16,7 +16,7 @@ FROM gcr.io/distroless/static
 
 WORKDIR /
 
-COPY --from=builder /test /test
+#COPY --from=builder /test
 
 # Optionally copy other necessary files (e.g., config files)
 # COPY --from=builder /app/config.toml /test/config.toml
@@ -28,4 +28,4 @@ USER 1000:1000
 EXPOSE 8080
 
 # Command to run the application
-CMD ["/test/main"]
+CMD ["/"]
