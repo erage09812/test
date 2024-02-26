@@ -6,9 +6,4 @@ COPY . .
 
 RUN CGO_ENABLED=0 GOOS=linux go build -o app ./cmd/main.go
 
-FROM ROM gcr.io/distroless
-COPY --from=builder /app/app .
-# COPY --from=builder /app/config.toml .
-USER 1000:1000
-EXPOSE 8080
-CMD ["./app"]
+
