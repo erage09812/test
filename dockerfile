@@ -3,10 +3,10 @@ FROM python:3.8-slim
 FROM golang:1.22-alpine AS builder
 
 # Set the working directory in the container
-WORKDIR /
+WORKDIR /test
 
 # Copy the current directory contents into the container at /app
-COPY . /
+COPY . /test
 
 
 # Install any needed dependencies specified in requirements.txt
@@ -21,6 +21,6 @@ EXPOSE 8080
 ENV NAME World
 
 FROM gcr.io/distroless/static
-COPY . /
+COPY . /test
 # Run app.py when the container launches
 CMD ["python", "app.py"]
