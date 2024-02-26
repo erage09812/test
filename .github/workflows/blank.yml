@@ -26,4 +26,4 @@ jobs:
 
       - name: Build and push Docker image
         run: |
-          docker build -t your_image_name:tag .
+          docker build -t test:tag .
