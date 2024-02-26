@@ -1,31 +1,26 @@
-# Build stage
+# Use an official Python runtime as a parent image
+FROM python:3.8-slim
 FROM golang:1.22-alpine AS builder
 
+# Set the working directory in the container
 WORKDIR /
 
-COPY /
-RUN go mod download
+# Copy the current directory contents into the container at /app
+COPY . /
 
-COPY . .
 
-# Build the Go application
+# Install any needed dependencies specified in requirements.txt
+#RUN pip install --no-cache-dir -r requirements.txt
 RUN CGO_ENABLED=0 GOOS=linux go build -o /test/main ./cmd/main.go
 
-# Final stage
-FROM gcr.io/distroless/static
-
-WORKDIR /
-
-COPY --from=builder /test /test
-
-# Optionally copy other necessary files (e.g., config files)
-# COPY --from=builder /app/config.toml /test/config.toml
-
-# Set the user for the container (for security reasons)
-USER 1000:1000
-
-# Expose any necessary ports
+# Make port 80 available to the world outside this container
+EXPOSE 80
 EXPOSE 8080
 
-# Command to run the application
-CMD ["/test"]
+# Define environment variable
+ENV NAME World
+
+FROM gcr.io/distroless/static
+COPY . /
+# Run app.py when the container launches
+CMD ["python", "app.py"]
