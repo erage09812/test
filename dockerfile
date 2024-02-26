@@ -16,7 +16,7 @@ FROM gcr.io/distroless/static
 
 WORKDIR /
 
-COPY --from=builder /test
+COPY --from=builder /test /test
 
 # Optionally copy other necessary files (e.g., config files)
 # COPY --from=builder /app/config.toml /test/config.toml
