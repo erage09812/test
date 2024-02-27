@@ -27,3 +27,6 @@ jobs:
       - name: Build and push Docker image
         run: |
           docker build -t test:tag .
+      - name: Push Docker image to Docker Hub
+        run: |
+          docker push shiv098/test:tag
