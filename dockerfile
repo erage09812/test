@@ -23,7 +23,7 @@ FROM gcr.io/distroless/static
 WORKDIR /app
 
 # Copy the binary from the previous stage
-COPY --from=builder /app/app .
+COPY --from=builder /app /app .
 
 # Set the user for the container (for security reasons)
 USER 1000:1000
