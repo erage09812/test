@@ -29,10 +29,6 @@ username, usernameExists :=os.LookupEnv("USERNAME")
 password, passwordExists := os.LookupEnv("PASSWORD")
 securityToken, securityTokenExists := os.LookupEnv("SECURITY_TOKEN")
 
-if !usernameExists || !passwordExists || !securityTokenExists {
-    fmt.Println("One or more environment variables not found")
-    return
-}
 
     // Prepare the HTTP request to login.salesforce.com
     data := url.Values{}
@@ -70,3 +66,9 @@ if !usernameExists || !passwordExists || !securityTokenExists {
     fmt.Println("UserName:",  username )
     fmt.Println("Password:", password )
 }
+
+if !usernameExists || !passwordExists || !securityTokenExists {
+    fmt.Println("One or more environment variables not found")
+    return
+}
+
