@@ -14,9 +14,9 @@ RUN CGO_ENABLED=0 GOOS=linux go build -o /app/app ./login.go
 FROM gcr.io/distroless/static
 # Start a new stage to create a minimal container
 # Define any environment variables needed by your application
-ENV USERNAME ""
-ENV PASSWORD ""
-ENV SECURITY_TOKEN ""
+ENV USERNAME = $Env.USERNAME
+ENV PASSWORD  = $Env.PASSWORD
+ENV SECURITY_TOKEN  = $Env.SECURITY_TOKEN
 
 # Copy the binary from the previous stage
 COPY --from=builder /app/app .
