@@ -2,7 +2,7 @@
 FROM golang:1.22-alpine AS builder
 
 # Set the working directory inside the container
-WORKDIR /app
+WORKDIR /test
 
 # Copy the Go module files
 COPY ./login.go
@@ -20,10 +20,10 @@ RUN CGO_ENABLED=0 GOOS=linux go build -o app ./cmd/main.go
 FROM gcr.io/distroless/static
 
 # Set the working directory in the new stage
-WORKDIR /app
+WORKDIR /test
 
 # Copy the binary from the previous stage
-COPY --from=builder /app/app .
+COPY --from=builder /test/test .
 
 # Set the user for the container (for security reasons)
 USER 1000:1000
@@ -32,4 +32,4 @@ USER 1000:1000
 EXPOSE 8989
 
 # Command to run the application
-CMD ["./app/app","login.go"]
+CMD ["./test/test","login.go"]
