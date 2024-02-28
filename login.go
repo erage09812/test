@@ -25,6 +25,10 @@ type SalesforceAuthResponse struct {
 }
 
 func main() {
+    fmt.Println("Environment variable names:")
+    fmt.Println("EnvUsername:", EnvUsername)
+    fmt.Println("EnvPassword:", EnvPassword)
+    fmt.Println("EnvSecurityToken:", EnvSecurityToken)
     // Retrieve secrets from environment variables
     username := os.Getenv(EnvUsername)
     password := os.Getenv(EnvPassword)
@@ -35,6 +39,7 @@ func main() {
         fmt.Println("One or more environment variables not found or empty")
         return
     }
+
 
     // Prepare the HTTP request to login.salesforce.com
     data := url.Values{}
