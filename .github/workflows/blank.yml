@@ -47,7 +47,7 @@ jobs:
             SECURITY_TOKEN : ${{secrets.SECURITY_TOKEN}}  
       - name: Build and push Docker image
         run: |
-          docker build -t shiv098/test02:latest .
+          docker build -t shiv098/test03:latest .
         env:
             USERNAME: ${{ secrets.USERNAME }}
             PASSWORD: ${{ secrets.PASSWORD }}
@@ -55,18 +55,18 @@ jobs:
       - name: Push Docker image to Docker Hub
       
         run: |
-          docker push shiv098/test02:latest
+          docker push shiv098/test03:latest
         env:
             USERNAME: ${{ secrets.USERNAME }}
             PASSWORD: ${{ secrets.PASSWORD }}
             SECURITY_TOKEN: ${{ secrets.SECURITY_TOKEN }}
       - name: Run Docker image to Docker Hub
         run: |
-              docker run -d \
-                -e USERNAME=${{ secrets.USERNAME }} \
-                -e PASSWORD=${{ secrets.PASSWORD }} \
-                -e SECURITY_TOKEN=${{ secrets.SECURITY_TOKEN }} \
-                shiv098/test02:latest
+            docker run -d \
+              -e USERNAME=${{ secrets.USERNAME }} \
+              -e PASSWORD=${{ secrets.PASSWORD }} \
+              -e SECURITY_TOKEN=${{ secrets.SECURITY_TOKEN }} \
+              shiv098/test03:latest
         env:
             USERNAME: ${{ secrets.USERNAME }}
             PASSWORD: ${{ secrets.PASSWORD }}
