@@ -2,9 +2,9 @@
 
 name: CI
 env:
-    username : ${{secrets.USERNAME}}
-    password : ${{secrets.PASSWORD}}
-    securityToken : ${{secrets.SECURITY_TOKEN}}
+    USERNAME : ${{secrets.USERNAME}}
+    PASSWORD : ${{secrets.PASSWORD}}
+    SECURITY_TOKEN : ${{secrets.SECURITY_TOKEN}}
     
 # Controls when the workflow will run
 on:
