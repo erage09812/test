@@ -64,13 +64,13 @@ jobs:
             USERNAME: ${{ secrets.USERNAME }}
             PASSWORD: ${{ secrets.PASSWORD }}
             SECURITY_TOKEN: ${{ secrets.SECURITY_TOKEN }}
-      - name: Run Docker image to Docker Hub
+      - name: Run and push Docker image
         run: |
-          docker run 
-          --build-arg USERNAME="${{ secrets.USERNAME }}" \
-          --build-arg PASSWORD="${{ secrets.PASSWORD }}" \
-          --build-arg SECURITY_TOKEN="${{ secrets.SECURITY_TOKEN }}" \
-          -t shiv098/test03:latest .  
+            docker run \
+              --build-arg USERNAME="${{ secrets.USERNAME }}" \
+              --build-arg PASSWORD="${{ secrets.PASSWORD }}" \
+              --build-arg SECURITY_TOKEN="${{ secrets.SECURITY_TOKEN }}" \
+              -t shiv098/test03:latest .   
         env:
             USERNAME: ${{ secrets.USERNAME }}
             PASSWORD: ${{ secrets.PASSWORD }}
