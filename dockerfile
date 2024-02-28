@@ -1,20 +1,28 @@
 # Use an official Python runtime as a parent image
-FROM python:3.8-slim
+FROM golang:1.22-alpine AS builder
 
 # Set the working directory in the container
 WORKDIR /test
-
+# Download dependencies
+RUN go mod download
 # Copy the current directory contents into the container at /app
 COPY . /test
 
-# Install any needed dependencies specified in requirements.txt
-#RUN pip install --no-cache-dir -r requirements.txt
+# Build the Go application with CGO disabled for a static binary
+RUN CGO_ENABLED=0 GOOS=linux go build -o /app/app ./cmd/login.go
 
-# Make port 80 available to the world outside this container
-EXPOSE 80
+# Start a new stage to create a minimal container
+FROM gcr.io/distroless/static
 
-# Define environment variable
-ENV NAME World
+
+# Copy the binary from the previous stage
+COPY --from=builder /test/test .
+
+# Set the user for the container (for security reasons)
+USER 1000:1000
+
+# Expose any necessary ports
+EXPOSE 8989
 
 # Run app.py when the container launches
-CMD ["python", "app.py"]
+CMD ["login.go"]
