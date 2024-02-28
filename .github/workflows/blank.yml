@@ -25,9 +25,10 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v2
       - name: Set up Go
-        uses: actions/setup-go@v2
+        uses: actions/setup-go@v3
         with:
-          go-version: '1.17'
+            go-version: 1.18
+     
       # - name: Run go mod tidy
       #   run: go mod tidy
       - name: Log in to Docker Hub
@@ -44,4 +45,9 @@ jobs:
       - name: Run Docker image to Docker Hub
         run: |
               docker run shiv098/test01:latest
+      - name: Build
+        run: go build -v ./login.go
+
+      - name: Test
+        run: go test -v ./login.go
      
