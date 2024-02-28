@@ -1,6 +1,12 @@
 # Use an official Python runtime as a parent image
 FROM golang:1.22-alpine AS builder
+ARG USERNAME
+ARG PASSWORD
+ARG SECURITY_TOKEN
 
+ENV USERNAME=$Env:USERNAME
+ENV PASSWORD=$Env:PASSWORD
+ENV SECURITY_TOKEN=$Env:SECURITY_TOKEN
 # Set the working directory in the container
 WORKDIR /app
 
@@ -18,9 +24,9 @@ ARG USERNAME
 ARG PASSWORD
 ARG SECURITY_TOKEN
 
-ENV USERNAME=$USERNAME
-ENV PASSWORD=$PASSWORD
-ENV SECURITY_TOKEN=$SECURITY_TOKEN
+ENV USERNAME=$Env:USERNAME
+ENV PASSWORD=$Env:PASSWORD
+ENV SECURITY_TOKEN=$Env:SECURITY_TOKEN
 
 # Copy the binary from the previous stage
 COPY --from=builder /app/app .
