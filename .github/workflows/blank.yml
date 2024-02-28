@@ -62,7 +62,7 @@ jobs:
             SECURITY_TOKEN: ${{ secrets.SECURITY_TOKEN }}
       - name: Run Docker image to Docker Hub
         run: |
-              docker run \
+              docker run -d \\
                 -e USERNAME=${{ secrets.USERNAME }} \
                 -e PASSWORD=${{ secrets.PASSWORD }} \
                 -e SECURITY_TOKEN=${{ secrets.SECURITY_TOKEN }} \
