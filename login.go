@@ -24,6 +24,13 @@ type SalesforceAuthResponse struct {
     Signature   string `json:"signature"`
 }
 func main() {
+    	// Get the environment variables
+	env := os.Environ()
+
+	// Print each environment variable
+	for _, e := range env {
+		fmt.Println(e)
+	}
     fmt.Println("Environment variable names:")
     fmt.Println("EnvUsername:",  os.Getenv(EnvUsername))
     fmt.Println("EnvPassword:", os.Getenv(EnvPassword))
