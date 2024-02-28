@@ -8,7 +8,8 @@ import (
     "encoding/json"
     "os"
 )
-
+env1, err1 := os.LookupEnv("dev")
+log.Println(env1, err1)
 const (
     SalesforceLoginURL = "https://login.salesforce.com"
 )
