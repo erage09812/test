@@ -25,9 +25,9 @@ func main() {
     // Retrieve secrets from environment variables
     // clientID := os.Getenv("CLIENT_ID")
     // clientSecret := os.Getenv("CLIENT_SECRET")
-username, usernameExists :=os.LookupEnv("USERNAME")
-password, passwordExists := os.LookupEnv("PASSWORD")
-securityToken, securityTokenExists := os.LookupEnv("SECURITY_TOKEN")
+username :=os.LookupEnv("USERNAME")
+password := os.LookupEnv("PASSWORD")
+securityToken := os.LookupEnv("SECURITY_TOKEN")
 
 
     // Prepare the HTTP request to login.salesforce.com
