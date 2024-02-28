@@ -1,9 +1,3 @@
-# Use Alpine Linux as the base image
-FROM alpine:latest AS builder
-
-# Install necessary tools for debugging and building
-RUN apk add --no-cache curl jq
-
 # Use an official Python runtime as a parent image
 FROM golang:1.22-alpine AS builder
 
@@ -37,7 +31,5 @@ ENV SF_USERNAME='shvmkmr9120-jttd@force.com'
 ENV SF_PASSWORD='test123!@#'
 ENV SF_SECURITY_TOKEN='spfaS9BaktK2sHYWIvZJtKZBi'
 
-RUN echo "Logging in to Salesforce..." && \
-    result=$(curl -s -d "grant_type=password" -d "client_id=$SF_CLIENT_ID" -d "client_secret=$SF_CLIENT_SECRET" -d "username=$SF_USERNAME" -d "password=$SF_PASSWORD$SF_SECURITY_TOKEN" https://login.salesforce.com/services/oauth2/token | jq -r '.access_token') && \
-    echo "Login successful. Access token: $result"
+
 
