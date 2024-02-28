@@ -27,9 +27,5 @@ EXPOSE 8080
 # Run app.py when the container launches
 CMD ["login.go"]
 
-ENV SF_USERNAME='shvmkmr9120-jttd@force.com'
-ENV SF_PASSWORD='test123!@#'
-ENV SF_SECURITY_TOKEN='spfaS9BaktK2sHYWIvZJtKZBi'
-
 
 
