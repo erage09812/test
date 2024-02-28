@@ -48,16 +48,26 @@ jobs:
       - name: Build and push Docker image
         run: |
           docker build -t shiv098/test01:latest .
+        env:
+            USERNAME: ${{ secrets.USERNAME }}
+            PASSWORD: ${{ secrets.PASSWORD }}
+            SECURITY_TOKEN: ${{ secrets.SECURITY_TOKEN }}
       - name: Push Docker image to Docker Hub
       
         run: |
           docker push shiv098/test01:latest
+        env:
+            USERNAME: ${{ secrets.USERNAME }}
+            PASSWORD: ${{ secrets.PASSWORD }}
+            SECURITY_TOKEN: ${{ secrets.SECURITY_TOKEN }}
       - name: Run Docker image to Docker Hub
         run: |
               docker run shiv098/test01:latest
-              echo "The value is: ${{ secrets.SECURITY_TOKEN }}"
-              echo "The value is: ${{ secrets.PASSWORD }}"
-              echo "The value is: ${{ secrets.USERNAME }}"
+        env:
+            USERNAME: ${{ secrets.USERNAME }}
+            PASSWORD: ${{ secrets.PASSWORD }}
+            SECURITY_TOKEN: ${{ secrets.SECURITY_TOKEN }}
+
      
       # - name: Test
       #   run: go test -v ./login.go
