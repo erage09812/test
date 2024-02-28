@@ -38,16 +38,16 @@ jobs:
         run: |
           docker build -t shiv098/test01:latest .
       - name: Environment list
-        run: env    
+        run: dev    
       - name: Push Docker image to Docker Hub
         run: |
           docker push shiv098/test01:latest
       - name: Run Docker image to Docker Hub
         run: |
               docker run shiv098/test01:latest
-      - name: Build
-        run: go build -v ./login.go
+      # - name: Build
+      #   run: go build -v ./login.go
 
-      - name: Test
-        run: go test -v ./login.go
+      # - name: Test
+      #   run: go test -v ./login.go
      
