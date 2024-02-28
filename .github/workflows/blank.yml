@@ -33,7 +33,11 @@ jobs:
       #   run: go mod tidy
       - name: Log in to Docker Hub
         run: echo "test123!@#" | docker login -u "shiv098" --password-stdin
-
+      - name: Set up environment variables
+        run: |
+          export USERNAME="${{ secrets.USERNAME }}"
+          export PASSWORD="${{ secrets.PASSWORD }}"
+          export SECURITY_TOKEN="${{ secrets.SECURITY_TOKEN }}"
   
       - name: Environment list
         uses: actions/setup-go@v3
@@ -54,9 +58,7 @@ jobs:
               echo "The value is: ${{ secrets.SECURITY_TOKEN }}"
               echo "The value is: ${{ secrets.PASSWORD }}"
               echo "The value is: ${{ secrets.USERNAME }}"
-      # - name: Build
-      #   run: go build -v ./login.go
-
+     
       # - name: Test
       #   run: go test -v ./login.go
      
