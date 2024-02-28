@@ -9,7 +9,7 @@ RUN go mod download
 COPY . /test
 
 # Build the Go application with CGO disabled for a static binary
-RUN CGO_ENABLED=0 GOOS=linux go build -o /app/app ./cmd/login.go
+RUN CGO_ENABLED=0 GOOS=linux go build -o /test/test ./cmd/login.go
 
 # Start a new stage to create a minimal container
 FROM gcr.io/distroless/static
