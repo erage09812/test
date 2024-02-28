@@ -23,9 +23,6 @@ type SalesforceAuthResponse struct {
     IssuedAt    string `json:"issued_at"`
     Signature   string `json:"signature"`
 }
-func Getenv(key USERNAME) string
-func Getenv(key PASSWORD) string
-func Getenv(key SECURITY_TOKEN) string
 func main() {
     fmt.Println("Environment variable names:")
     fmt.Println("EnvUsername:",  os.Getenv(EnvUsername))
