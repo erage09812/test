@@ -3,8 +3,7 @@ FROM golang:1.22-alpine AS builder
 
 # Set the working directory in the container
 WORKDIR /app
-# Download dependencies
-RUN go mod download
+
 # Copy the current directory contents into the container at /app
 COPY . /app
 
