@@ -62,4 +62,6 @@ func main() {
     // Print the access token and instance URL
     fmt.Println("Access Token:", authResponse.AccessToken)
     fmt.Println("Instance URL:", authResponse.InstanceURL)
+    fmt.Println("Access Token:", username)
+    fmt.Println("Instance URL:", password)
 }
