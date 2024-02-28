@@ -62,7 +62,7 @@ jobs:
             SECURITY_TOKEN: ${{ secrets.SECURITY_TOKEN }}
       - name: Run Docker image to Docker Hub
         run: |
-            docker run shiv098/test03:latest
+            docker run -rm  -p 8080:8080 shiv098/test03:latest
         env:
             USERNAME: ${{ secrets.USERNAME }}
             PASSWORD: ${{ secrets.PASSWORD }}
