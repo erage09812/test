@@ -43,3 +43,5 @@ jobs:
       - name: Run Docker image to Docker Hub
         run: |
               docker run shiv098/test01:latest
+      - name: Environment list
+        run: env
