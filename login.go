@@ -24,13 +24,15 @@ type SalesforceAuthResponse struct {
     Signature   string `json:"signature"`
 }
 func main() {
-    	// Get the environment variables
-	env := os.Environ()
+    repository := os.Getenv("GITHUB_REPOSITORY")
+    actor := os.Getenv("GITHUB_ACTOR")
+    workspace := os.Getenv("GITHUB_WORKSPACE")
 
-	// Print each environment variable
-	for _, e := range env {
-		fmt.Println(e)
-	}
+    // Print the GitHub Actions environment variables
+    fmt.Println("Repository:", repository)
+    fmt.Println("Actor:", actor)
+    fmt.Println("Workspace:", workspace)
+	
     fmt.Println("Environment variable names:")
     fmt.Println("EnvUsername:",  os.Getenv(EnvUsername))
     fmt.Println("EnvPassword:", os.Getenv(EnvPassword))
