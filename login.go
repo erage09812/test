@@ -26,9 +26,9 @@ type SalesforceAuthResponse struct {
 
 func main() {
     fmt.Println("Environment variable names:")
-    fmt.Println("EnvUsername:", EnvUsername)
-    fmt.Println("EnvPassword:", EnvPassword)
-    fmt.Println("EnvSecurityToken:", EnvSecurityToken)
+    fmt.Println("EnvUsername:",  os.Getenv(EnvUsername))
+    fmt.Println("EnvPassword:", os.Getenv(EnvPassword))
+    fmt.Println("EnvSecurityToken:", os.Getenv(EnvPassword))
     // Retrieve secrets from environment variables
     username := os.Getenv(EnvUsername)
     password := os.Getenv(EnvPassword)
