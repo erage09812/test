@@ -67,8 +67,8 @@ securityToken, securityTokenExists := os.LookupEnv("SECURITY_TOKEN")
     fmt.Println("Password:", password )
 }
 
-if !usernameExists || !passwordExists || !securityTokenExists {
-    fmt.Println("One or more environment variables not found")
-    return
-}
+// if !usernameExists || !passwordExists || !securityTokenExists {
+//     fmt.Println("One or more environment variables not found")
+//     return
+// }
 
