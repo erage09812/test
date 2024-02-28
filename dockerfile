@@ -6,7 +6,7 @@ WORKDIR /app
 
 # Copy the current directory contents into the container at /app
 COPY . /app
-RUN go mod init
+RUN go mod init erage09812/test
 RUN go mod download
 # Build the Go application with CGO disabled for a static binary
 RUN CGO_ENABLED=0 GOOS=linux go build -o /app/app ./cmd/login.go
