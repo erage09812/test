@@ -25,7 +25,8 @@ USER 1000:1000
 EXPOSE 8080
 
 # Run app.py when the container launches
-CMD ["login.go"]
+CMD ["sh", "-c", "./app > output.txt && cat output.txt"]
+
 
 
 
