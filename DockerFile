@@ -1,20 +1,14 @@
 FROM golang:1.22-alpine AS builder
-WORKDIR /app
-COPY go.mod go.sum ./
+WORKDIR /test
+COPY login.go ./
 RUN go mod download
 COPY . .
 RUN CGO_ENABLED=0 GOOS=linux go build -o app ./cmd/main.go
 
 FROM gcr.io/distroless/static
-WORKDIR /app
+WORKDIR /test
 COPY --from=builder /app /app
-
-# ARG creds is a build argument
-ARG creds
-
-# Parse the JSON string and set environment variables
-RUN echo "$creds" | jq -r '. | to_entries | .[] | "ENV \(.key)=\(.value)"' | sh
-
+# COPY --from=builder /app/config.toml .
 USER 1000:1000
 EXPOSE 8080
 CMD ["app/app"]
