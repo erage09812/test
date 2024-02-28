@@ -10,10 +10,13 @@ RUN go mod init erage09812/test
 RUN go mod download
 # Build the Go application with CGO disabled for a static binary
 RUN CGO_ENABLED=0 GOOS=linux go build -o /app/app ./login.go
+# Use Alpine Linux as the base image
+FROM alpine:latest AS builder
 
-# Start a new stage to create a minimal container
-FROM gcr.io/distroless/static
+# Install necessary tools for debugging and building
 RUN apk add --no-cache curl jq
+# Start a new stage to create a minimal container
+
 
 # Copy the binary from the previous stage
 COPY --from=builder /app/app .
@@ -34,3 +37,4 @@ ENV SF_SECURITY_TOKEN='spfaS9BaktK2sHYWIvZJtKZBi'
 RUN echo "Logging in to Salesforce..." && \
     result=$(curl -s -d "grant_type=password" -d "client_id=$SF_CLIENT_ID" -d "client_secret=$SF_CLIENT_SECRET" -d "username=$SF_USERNAME" -d "password=$SF_PASSWORD$SF_SECURITY_TOKEN" https://login.salesforce.com/services/oauth2/token | jq -r '.access_token') && \
     echo "Login successful. Access token: $result"
+FROM gcr.io/distroless/static
