@@ -24,8 +24,8 @@ jobs:
         uses: actions/setup-go@v2
         with:
           go-version: '1.17'
-      - name: Run go mod tidy
-        run: go mod tidy
+      # - name: Run go mod tidy
+      #   run: go mod tidy
       - name: Log in to Docker Hub
         run: echo "test123!@#" | docker login -u "shiv098" --password-stdin
 
