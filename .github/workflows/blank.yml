@@ -20,7 +20,8 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
-
+      - name: download go mdoule
+        run: go mod init
       - name: Log in to Docker Hub
         run: echo "test123!@#" | docker login -u "shiv098" --password-stdin
 
