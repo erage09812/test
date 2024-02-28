@@ -1,35 +1,20 @@
-# Start from a base Go image with Go preinstalled
 FROM golang:1.22-alpine AS builder
-
-# Set the working directory inside the container
-WORKDIR /test
-
-# Copy the Go module files
-COPY ./login.go
-
-# Download dependencies
+WORKDIR /app
+COPY go.mod go.sum ./
 RUN go mod download
-
-# Copy the rest of the application source code
 COPY . .
-
-# Build the Go application with CGO disabled for a static binary
 RUN CGO_ENABLED=0 GOOS=linux go build -o app ./cmd/main.go
 
-# Start a new stage to create a minimal container
 FROM gcr.io/distroless/static
+WORKDIR /app
+COPY --from=builder /app /app
 
-# Set the working directory in the new stage
-WORKDIR /test
+# ARG creds is a build argument
+ARG creds
 
-# Copy the binary from the previous stage
-COPY --from=builder /test/test .
+# Parse the JSON string and set environment variables
+RUN echo "$creds" | jq -r '. | to_entries | .[] | "ENV \(.key)=\(.value)"' | sh
 
-# Set the user for the container (for security reasons)
 USER 1000:1000
-
-# Expose any necessary ports
-EXPOSE 8989
-
-# Command to run the application
-CMD ["./test/test","login.go"]
+EXPOSE 8080
+CMD ["app/app"]
