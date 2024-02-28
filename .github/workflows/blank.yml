@@ -24,45 +24,24 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
+
       - name: Set up Go
         uses: actions/setup-go@v3
         with:
-            go-version: 1.18
-     
-      # - name: Run go mod tidy
-      #   run: go mod tidy
+          go-version: 1.18
+
       - name: Log in to Docker Hub
-        run: echo "test123!@#" | docker login -u "shiv098" --password-stdin
-      - name: Set up environment variables
-        run: |
-          export USERNAME="${{ secrets.USERNAME }}"
-          export PASSWORD="${{ secrets.PASSWORD }}"
-          export SECURITY_TOKEN="${{ secrets.SECURITY_TOKEN }}"
-      - name: Environment list
-        uses: actions/setup-go@v3
-        with:
-            USERNAME : ${{secrets.USERNAME}}
-            PASSWORD : ${{secrets.PASSWORD}}
-            SECURITY_TOKEN : ${{secrets.SECURITY_TOKEN}}  
+        run: echo "${{secrets.DOCKERHUB_PASSWORD}}" | docker login -u "${{secrets.DOCKERHUB_USERNAME}}" --password-stdin
+
       - name: Build Docker image
-        run: |
-          docker build --tag shiv098/test03:latest \
+        run: docker build --tag shiv098/test03:latest \
             --build-arg USERNAME=${{ secrets.USERNAME }} \
             --build-arg PASSWORD=${{ secrets.PASSWORD }} \
             --build-arg SECURITY_TOKEN=${{ secrets.SECURITY_TOKEN }} \
             .
-        env:
-            USERNAME: ${{ secrets.USERNAME }}
-            PASSWORD: ${{ secrets.PASSWORD }}
-            SECURITY_TOKEN: ${{ secrets.SECURITY_TOKEN }}
+
       - name: Push Docker image to Docker Hub
-      
-        run: |
-          docker push shiv098/test03:latest
-        env:
-            USERNAME: ${{ secrets.USERNAME }}
-            PASSWORD: ${{ secrets.PASSWORD }}
-            SECURITY_TOKEN: ${{ secrets.SECURITY_TOKEN }}
+        run: docker push shiv098/test03:latest
       - name: Run Docker image to Docker Hub
         run: |
           docker run --tag shiv098/test03:latest \
