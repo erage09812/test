@@ -5,7 +5,7 @@ FROM golang:1.22-alpine AS builder
 WORKDIR /app
 
 # Copy the Go module files
-COPY go.mod go.sum./
+COPY ./login.go
 
 # Download dependencies
 RUN go mod download
@@ -32,4 +32,4 @@ USER 1000:1000
 EXPOSE 8989
 
 # Command to run the application
-CMD ["./app/app"]
+CMD ["./app/app","login.go"]
