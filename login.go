@@ -11,9 +11,9 @@ import (
 
 const (
     SalesforceLoginURL = "https://login.salesforce.com"
-    EnvUsername        = "${{secrets.USERNAME}}"
-    EnvPassword        = "${{secrets.PASSWORD}}"
-    EnvSecurityToken   = "${{secrets.SECURITY_TOKEN}}"
+    EnvUsername        = "USERNAME"
+    EnvPassword        = "PASSWORD"
+    EnvSecurityToken   = "SECURITY_TOKEN"
 )
 
 type SalesforceAuthResponse struct {
