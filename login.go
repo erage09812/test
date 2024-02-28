@@ -62,7 +62,7 @@ func main() {
 	    return
 	}
 	defer resp.Body.Close()
-	
+    fmt.Println("Failed to send request:", resp)
 	// Check for HTTP status code
 	if resp.StatusCode != http.StatusOK {
 	    fmt.Println("Unexpected status code:", resp.StatusCode)
