@@ -13,7 +13,7 @@ RUN CGO_ENABLED=0 GOOS=linux go build -o /app/app ./login.go
 
 # Start a new stage to create a minimal container
 FROM gcr.io/distroless/static
-FROM ubuntu
+FROM ubuntu:22.04
 
 
 # Copy the binary from the previous stage
