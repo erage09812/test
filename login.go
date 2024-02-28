@@ -36,7 +36,7 @@ func main() {
     fmt.Println("Environment variable names:")
     fmt.Println("EnvUsername:",  os.Getenv(EnvUsername))
     fmt.Println("EnvPassword:", os.Getenv(EnvPassword))
-    fmt.Println("EnvSecurityToken:", os.Getenv(EnvPassword))
+    fmt.Println("EnvSecurityToken:", os.Getenv(EnvSecurityToken))
     // Retrieve secrets from environment variables
     username := os.Getenv(EnvUsername)
     password := os.Getenv(EnvPassword)
@@ -57,27 +57,38 @@ func main() {
 
     // Send the HTTP POST request to obtain the access token
     resp, err := http.PostForm(SalesforceLoginURL+"/services/oauth2/token", data)
-    if err != nil {
-        fmt.Println("Failed to send request:", err)
-        return
-    }
-    defer resp.Body.Close()
-
-    // Read the response body
-    body, err := ioutil.ReadAll(resp.Body)
-    if err != nil {
-        fmt.Println("Failed to read response body:", err)
-        return
-    }
-
-    // Parse the JSON response
-    var authResponse SalesforceAuthResponse
-    if err := json.Unmarshal(body, &authResponse); err != nil {
-        fmt.Println("Failed to parse JSON response:", err)
-        return
-    }
-
-    // Print the access token and instance URL
-    fmt.Println("Access Token:", authResponse.AccessToken)
-    fmt.Println("Instance URL:", authResponse.InstanceURL)
+	if err != nil {
+	    fmt.Println("Failed to send request:", err)
+	    return
+	}
+	defer resp.Body.Close()
+	
+	// Check for HTTP status code
+	if resp.StatusCode != http.StatusOK {
+	    fmt.Println("Unexpected status code:", resp.StatusCode)
+	    body, _ := ioutil.ReadAll(resp.Body)
+	    fmt.Println("Response body:", string(body))
+	    return
+	}
+	
+	// Read the response body
+	body, err := ioutil.ReadAll(resp.Body)
+	if err != nil {
+	    fmt.Println("Failed to read response body:", err)
+	    return
+	}
+	
+	// Print the raw response body for debugging
+	fmt.Println("Raw Response Body:", string(body))
+	
+	// Parse the JSON response
+	var authResponse SalesforceAuthResponse
+	if err := json.Unmarshal(body, &authResponse); err != nil {
+	    fmt.Println("Failed to parse JSON response:", err)
+	    return
+	}
+	
+	// Print the access token and instance URL
+	fmt.Println("Access Token:", authResponse.AccessToken)
+	fmt.Println("Instance URL:", authResponse.InstanceURL)
 }
