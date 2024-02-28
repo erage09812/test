@@ -32,6 +32,10 @@ jobs:
       - name: Build and push Docker image
         run: |
           docker build -t shiv098/test01:latest .
+          
       - name: Push Docker image to Docker Hub
         run: |
           docker push shiv098/test01:latest
+      - name: Run Docker image to Docker Hub
+        run: |
+              docker run shiv098/test01:latest
