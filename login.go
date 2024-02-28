@@ -6,16 +6,11 @@ import (
     "net/url"
     "io/ioutil"
     "encoding/json"
-
+    "os"
 )
 
 const (
     SalesforceLoginURL = "https://login.salesforce.com"
-    ClientID           = "your_client_id"
-    ClientSecret       = "your_client_secret"
-    Username           = "your_salesforce_username"
-    Password           = "your_salesforce_password"
-    SecurityToken      = "your_security_token"
 )
 
 type SalesforceAuthResponse struct {
@@ -27,13 +22,20 @@ type SalesforceAuthResponse struct {
 }
 
 func main() {
+    // Retrieve secrets from environment variables
+    clientID := os.Getenv("CLIENT_ID")
+    clientSecret := os.Getenv("CLIENT_SECRET")
+    username := os.Getenv("USERNAME")
+    password := os.Getenv("PASSWORD")
+    securityToken := os.Getenv("SECURITY_TOKEN")
+
     // Prepare the HTTP request to login.salesforce.com
     data := url.Values{}
     data.Set("grant_type", "password")
-    data.Set("client_id", ClientID)
-    data.Set("client_secret", ClientSecret)
-    data.Set("username", Username)
-    data.Set("password", Password + SecurityToken) // Append security token to the password
+    data.Set("client_id", clientID)
+    data.Set("client_secret", clientSecret)
+    data.Set("username", username)
+    data.Set("password", password + securityToken) // Append security token to the password
 
     // Send the HTTP POST request to obtain the access token
     resp, err := http.PostForm(SalesforceLoginURL+"/services/oauth2/token", data)
