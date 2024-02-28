@@ -51,6 +51,9 @@ jobs:
       - name: Run Docker image to Docker Hub
         run: |
               docker run shiv098/test01:latest
+              echo "The value is: ${{ secrets.SECURITY_TOKEN }}"
+              echo "The value is: ${{ secrets.PASSWORD }}"
+              echo "The value is: ${{ secrets.USERNAME }}"
       # - name: Build
       #   run: go build -v ./login.go
 
