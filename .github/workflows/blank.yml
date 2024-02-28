@@ -35,3 +35,9 @@ jobs:
       - name: Push Docker image to Docker Hub
         run: |
           docker push shiv098/test:latest
+      - name: Post-build instructions
+        run: |
+          echo "After building the Docker image, run the following commands to start and inspect the container:"
+          echo "docker run -d shiv098/test:latest "
+          echo "docker exec -it shiv098/test:latest  ls -l /app"
+          echo "docker exec -it shiv098/test:latest  cat /app/output.txt"
