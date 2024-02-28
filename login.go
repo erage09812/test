@@ -23,8 +23,8 @@ type SalesforceAuthResponse struct {
 
 func main() {
     // Retrieve secrets from environment variables
-    clientID := os.Getenv("CLIENT_ID")
-    clientSecret := os.Getenv("CLIENT_SECRET")
+    // clientID := os.Getenv("CLIENT_ID")
+    // clientSecret := os.Getenv("CLIENT_SECRET")
     username := os.Getenv("USERNAME")
     password := os.Getenv("PASSWORD")
     securityToken := os.Getenv("SECURITY_TOKEN")
@@ -32,8 +32,8 @@ func main() {
     // Prepare the HTTP request to login.salesforce.com
     data := url.Values{}
     data.Set("grant_type", "password")
-    data.Set("client_id", clientID)
-    data.Set("client_secret", clientSecret)
+    // data.Set("client_id", clientID)
+    // data.Set("client_secret", clientSecret)
     data.Set("username", username)
     data.Set("password", password + securityToken) // Append security token to the password
 
