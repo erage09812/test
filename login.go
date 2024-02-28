@@ -24,9 +24,9 @@ type SalesforceAuthResponse struct {
 func main() {
     // Retrieve secrets from environment variables
     // clientID := os.Getenv("CLIENT_ID")
-    // clientSecret := os.LookupEnv("CLIENT_SECRET")
-username, usernameExists := os.LookupEnv("USERNAME")
-password, passwordExists := os.LookupEnv("PASSWORD")
+    // clientSecret := os.Getenv("CLIENT_SECRET")
+username, usernameExists :=os.Getenv("USERNAME")
+password, passwordExists := os.Getenv("PASSWORD")
 securityToken, securityTokenExists := os.LookupEnv("SECURITY_TOKEN")
 
 if !usernameExists || !passwordExists || !securityTokenExists {
