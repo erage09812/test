@@ -1,3 +1,5 @@
+name: Trigger CircleCI with Cypress Grep Tags
+
 on:
   workflow_dispatch:
     inputs:
@@ -11,6 +13,11 @@ on:
           - regression
           - full-suite
           - critical
+      branch_name:
+        description: Name of the branch to trigger the CircleCI pipeline
+        required: true
+        default: main  # Default to main, but you can select any branch
+        type: string
 
 jobs:
   trigger-circleci:
@@ -19,11 +26,10 @@ jobs:
       - name: Trigger CircleCI Pipeline with Selected Grep Tag
         env:
           CIRCLE_API_TOKEN: ${{ secrets.CIRCLE_API_TOKEN }}
-          BRANCH_NAME: ${{ github.ref_name }}  # Current branch name
+          BRANCH_NAME: ${{ inputs.branch_name }}  # Use the branch name from input
           CYPRESS_GREP_TAGS: ${{ inputs.grep_tag }}
         run: |-
           curl -u ${CIRCLE_API_TOKEN}: \
             --url 'https://circleci.com/api/v2/project/gh/i6systems/in2plane-cloud/pipeline' \
             --header 'Content-Type: application/json' \
             --data "{\"branch\":\"${BRANCH_NAME}\", \"cypress_grep_tags\":\"${CYPRESS_GREP_TAGS}\"}"
-
