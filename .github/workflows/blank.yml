@@ -16,7 +16,7 @@ on:
       branch_name:
         description: Name of the branch to trigger the CircleCI pipeline
         required: true
-        default: main  # Default to main, but you can select any branch
+        default: test2  # Default to main, but you can select any branch
         type: string
 
 jobs:
