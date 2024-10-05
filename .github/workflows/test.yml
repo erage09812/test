@@ -14,3 +14,7 @@ jobs:
       - name: Use grep_tag in another workflow
         run: |
           echo "Running with grep_tag=${{ inputs.grep_tag }}"
+      - name: Trigger Next Workflow
+        run: |
+              echo "Triggering second workflow with GREP_TAG: $GREP_TAG"
+              gh workflow run consume-grep-tag.yml --field grep_tag=$GREP_TAG
