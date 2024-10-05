@@ -26,4 +26,5 @@ jobs:
             --url 'https://circleci.com/api/v2/project/gh/i6systems/in2plane-cloud/pipeline' \
             --header 'Content-Type: application/json' \
             --data "{\"branch\":\"${BRANCH_NAME}\", \"cypress_grep_tags\":\"${CYPRESS_GREP_TAGS}\"}"
-
+      - name: Pass grep_tag to another job
+        run: echo "GREP_TAG=${{ inputs.grep_tag }}" >> $GITHUB_ENV
