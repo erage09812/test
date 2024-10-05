@@ -28,3 +28,5 @@ jobs:
             --data "{\"branch\":\"${BRANCH_NAME}\", \"cypress_grep_tags\":\"${CYPRESS_GREP_TAGS}\"}"
       - name: Pass grep_tag to another job
         run: echo "GREP_TAG=${{ inputs.grep_tag }}" >> $GITHUB_ENV
+      - name: Use the environment variable
+        run: echo "The value of grep_tag is $grep_tag"
