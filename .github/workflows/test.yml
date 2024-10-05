@@ -1,0 +1,16 @@
+on:
+  workflow_call:
+    inputs:
+      grep_tag:
+        description: Choose the Cypress grep tag to run
+        required: true
+        default: smoke
+        type: string  # Added 'type' field
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Use grep_tag in another workflow
+        run: |
+          echo "Running with grep_tag=${{ inputs.grep_tag }}"
