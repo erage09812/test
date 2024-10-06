@@ -14,9 +14,14 @@ jobs:
           path: .
 
       - name: Read and use the grep_tag value
+        id: read-grep-tag
         run: |
           grep_tag=$(cat grep_tag.txt)
           echo "The value of GREP_TAG is ${grep_tag}"
+          # Set grep_tag as an output variable so it can be used in other steps
+          echo "::set-output name=grep_tag::${grep_tag}"
 
       - name: Use grep_tag in subsequent steps
-        run: echo "Grep tag is being used as: $grep_tag"
+        env:
+          GREP_TAG: ${{ steps.read-grep-tag.outputs.grep_tag }}
+        run: echo "Grep tag is being used as: $GREP_TAG"
