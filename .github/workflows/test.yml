@@ -1,20 +1,34 @@
+name: Check Python Version
+
+# This specifies when the workflow will run. In this case, it runs on every push or pull request to the 'main' branch.
 on:
-  workflow_call:
-    inputs:
-      grep_tag:
-        description: Choose the Cypress grep tag to run
-        required: true
-        default: smoke
-        type: string  # Added 'type' field
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
 
 jobs:
-  build:
-    runs-on: ubuntu-latest
+  check-python-version:
+    runs-on: ubuntu-latest  # The OS where the workflow will run
+
+    strategy:
+      matrix:
+        python-version: [3.8, 3.9, 3.10]  # Define which Python versions to use for the check
+
     steps:
-      - name: Use grep_tag in another workflow
+      - name: Checkout code
+        uses: actions/checkout@v3  # Checks out your repository
+
+      - name: Setup Python
+        uses: actions/setup-python@v4  # Sets up the required Python version
+        with:
+          python-version: ${{ matrix.python-version }}
+
+      - name: Check Python Version
+        run: python --version  # Command to check and output the Python version
+
+      - name: Check if Python version is compatible
         run: |
-          echo "Running with grep_tag=${{ inputs.grep_tag }}"
-      - name: Trigger Next Workflow
-        run: |
-              echo "Triggering second workflow with GREP_TAG: $GREP_TAG"
-              gh workflow run consume-grep-tag.yml --field grep_tag=$GREP_TAG
+          python -c "import sys; assert sys.version_info >= (3, 7), 'Python version is too low!'"
