@@ -32,3 +32,5 @@ jobs:
       - name: Check if Python version is compatible
         run: |
           python -c "import sys; assert sys.version_info >= (3, 7), 'Python version is too low!'"
+      - name: Use the environment variable
+        run: echo "The value of GREP_TAG is $GREP_TAG"
