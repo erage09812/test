@@ -24,4 +24,4 @@ jobs:
       - name: Use grep_tag in subsequent steps
         env:
           GREP_TAG: ${{ steps.read-grep-tag.outputs.grep_tag }}
-        run: echo "Grep tag is being used as:$GREP_TAG"
+        run: echo "Grep tag is being used as:${grep_tag}"
