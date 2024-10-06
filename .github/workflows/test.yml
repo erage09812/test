@@ -1,27 +1,20 @@
-name: Retrieve Grep Tag
+name: Retrieve FOO
 
-on:
-  workflow_dispatch:
+on: push
 
 jobs:
-  retrieve-grep-tag:
+  retrieve:
     runs-on: ubuntu-latest
     steps:
-      - name: Download grep_tag artifact
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Download artifact
         uses: actions/download-artifact@v3
         with:
-          name: grep_tag_artifact
-          path: .*
+          name: foo_artifact
 
-      - name: Read and use the grep_tag value
-        id: read-grep-tag
+      - name: Read FOO value
         run: |
-          grep_tag=$(cat grep_tag.txt)
-          echo "The value of GREP_TAG is ${grep_tag}"
-          # Set grep_tag as an output variable so it can be used in other steps
-          echo "::set-output name=grep_tag::${grep_tag}"
-
-      - name: Use grep_tag in subsequent steps
-        env:
-          GREP_TAG: ${{ steps.read-grep-tag.outputs.grep_tag }}
-        run: echo "Grep tag is being used as: $GREP_TAG
+          FOO=$(cat foo.txt)
+          echo "FOO value is $FOO"
