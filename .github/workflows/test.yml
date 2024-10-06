@@ -13,10 +13,6 @@ jobs:
   check-python-version:
     runs-on: ubuntu-latest  # The OS where the workflow will run
 
-    strategy:
-      matrix:
-        python-version: [3.8, 3.9, 3.10]  # Define which Python versions to use for the check
-
     steps:
       - name: Checkout code
         uses: actions/checkout@v3  # Checks out your repository
