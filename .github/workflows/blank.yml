@@ -1,25 +1,21 @@
-name: Save FOO
+name: Trigger Workflow with Value
 
-on: 
-  workflow_dispatch:
-    inputs:
-      foo:
-        description: "Set the FOO variable"
-        required: true
-        default: "example_value"
+on:
+  push:
+    branches:
+      - main
 
 jobs:
-  build:
+  trigger-second-workflow:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
+      - name: Checkout Code
         uses: actions/checkout@v2
 
-      - name: Save FOO as artifact
-        run: echo "${{ github.event.inputs.foo }}" > foo.txt
-
-      - name: Upload artifact
-        uses: actions/upload-artifact@v3
-        with:
-          name: foo_artifact
-          path: foo.txt
+      - name: Send value to second workflow
+        run: |
+          curl -X POST \
+          -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
+          -H "Accept: application/vnd.github.everest-preview+json" \
+          https://api.github.com/repos/<your-username>/<your-repo>/dispatches \
+          -d '{"event_type":"custom_event","client_payload":{"value":"some_value"}}'
