@@ -1,28 +1,25 @@
-name: Save Grep Tag
+name: Save FOO
 
-on:
+on: 
   workflow_dispatch:
     inputs:
-      grep_tag:
-        description: Choose the Cypress grep tag to run
+      foo:
+        description: "Set the FOO variable"
         required: true
-        default: smoke
-        type: choice
-        options:
-          - smoke
-          - regression
-          - full-suite
-          - critical
+        default: "example_value"
 
 jobs:
-  save-grep-tag:
+  build:
     runs-on: ubuntu-latest
     steps:
-      - name: Set grep_tag as environment variable
-        run: echo "${{ inputs.grep_tag }}" > grep_tag.txt
+      - name: Checkout
+        uses: actions/checkout@v2
 
-      - name: Upload grep_tag as artifact
+      - name: Save FOO as artifact
+        run: echo "${{ github.event.inputs.foo }}" > foo.txt
+
+      - name: Upload artifact
         uses: actions/upload-artifact@v3
         with:
-          name: grep_tag_artifact
-          path: grep_tag.txt
+          name: foo_artifact
+          path: foo.txt
