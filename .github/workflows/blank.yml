@@ -1,4 +1,4 @@
-name: Trigger CircleCI with Cypress Grep Tags
+name: Save Grep Tag
 
 on:
   workflow_dispatch:
@@ -15,24 +15,14 @@ on:
           - critical
 
 jobs:
-  trigger-circleci:
+  save-grep-tag:
     runs-on: ubuntu-latest
-
     steps:
-      - name: Trigger CircleCI Pipeline with Selected Grep Tag
-        env:
-          CIRCLE_API_TOKEN: ${{ secrets.CIRCLE_API_TOKEN }}
-          BRANCH_NAME: ${{ github.ref_name }}  # Current branch name
-          CYPRESS_GREP_TAGS: ${{ inputs.grep_tag }}  # Correctly referencing the grep_tag input
-        run: |-
-          echo "Selected Cypress Grep Tag: ${CYPRESS_GREP_TAGS}"  # For debugging, shows the grep_tag
-          curl -u ${CIRCLE_API_TOKEN}: \
-            --url 'https://circleci.com/api/v2/project/gh/i6systems/in2plane-cloud/pipeline' \
-            --header 'Content-Type: application/json' \
-            --data "{\"branch\":\"${BRANCH_NAME}\", \"cypress_grep_tags\":\"${CYPRESS_GREP_TAGS}\"}"
+      - name: Set grep_tag as environment variable
+        run: echo "${{ inputs.grep_tag }}" > grep_tag.txt
 
-      - name: Pass grep_tag to GITHUB_ENV
-        run: echo "GREP_TAG=${{ inputs.grep_tag }}" >> $GITHUB_ENV
-
-      - name: Use the environment variable
-        run: echo "The value of GREP_TAG is $GREP_TAG"
+      - name: Upload grep_tag as artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: grep_tag_artifact
+          path: grep_tag.txt
