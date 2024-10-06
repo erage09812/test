@@ -1,32 +1,22 @@
-name: Check Python Version
+name: Retrieve Grep Tag
 
-# This specifies when the workflow will run. In this case, it runs on every push or pull request to the 'main' branch.
 on:
-  push:
-    branches:
-      - main
-  pull_request:
-    branches:
-      - main
+  workflow_dispatch:
 
 jobs:
-  check-python-version:
-    runs-on: ubuntu-latest  # The OS where the workflow will run
-
+  retrieve-grep-tag:
+    runs-on: ubuntu-latest
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v3  # Checks out your repository
-
-      - name: Setup Python
-        uses: actions/setup-python@v4  # Sets up the required Python version
+      - name: Download grep_tag artifact
+        uses: actions/download-artifact@v3
         with:
-          python-version: ${{ matrix.python-version }}
+          name: grep_tag_artifact
+          path: .
 
-      - name: Check Python Version
-        run: python --version  # Command to check and output the Python version
-
-      - name: Check if Python version is compatible
+      - name: Read and use the grep_tag value
         run: |
-          python -c "import sys; assert sys.version_info >= (3, 7), 'Python version is too low!'"
-      - name: Use the environment variable
-        run: echo "The value of GREP_TAG is $GREP_TAG"
+          grep_tag=$(cat grep_tag.txt)
+          echo "The value of GREP_TAG is ${grep_tag}"
+
+      - name: Use grep_tag in subsequent steps
+        run: echo "Grep tag is being used as: $grep_tag"
