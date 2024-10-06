@@ -11,7 +11,7 @@ jobs:
         uses: actions/download-artifact@v3
         with:
           name: grep_tag_artifact
-          path: .
+          path: .*
 
       - name: Read and use the grep_tag value
         id: read-grep-tag
@@ -24,4 +24,4 @@ jobs:
       - name: Use grep_tag in subsequent steps
         env:
           GREP_TAG: ${{ steps.read-grep-tag.outputs.grep_tag }}
-        run: echo "Grep tag is being used as:${grep_tag}"
+        run: echo "Grep tag is being used as: $GREP_TAG
